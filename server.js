@@ -17,6 +17,14 @@ server.use("/profile", cors(), profileRouter);
 server.use("/post", cors(), postRouter);
 server.use("/user", cors(), userRouter);
 console.log(listRoutes(server));
+
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"));
+}
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+});
+
 mongoose
   .connect(
     "mongodb+srv://diegostriveschool:h6nxg5U9SDcsLA26@cluster0-3ar0p.azure.mongodb.net/test?retryWrites=true&w=majority",
