@@ -3,7 +3,6 @@ const User = require("../models/user");
 const JwtStrategy = require("passport-jwt").Strategy;
 const ExtractJwt = require("passport-jwt").ExtractJwt;
 const jwt = require("jsonwebtoken");
-require("dotenv").config();
 
 passport.serializeUser(User.serializeUser()); //user.serial is from passport-local-mongoose
 passport.deserializeUser(User.deserializeUser());
