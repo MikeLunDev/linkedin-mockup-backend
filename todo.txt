@@ -1,3 +1,0 @@
-1) create a server.js or app.js to start express
-2) add the routes to the server
-3) implement Token Based Authentication endpoints

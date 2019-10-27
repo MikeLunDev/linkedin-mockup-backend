@@ -1,41 +1,48 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const experienceSchema = new Schema({
+const experienceSchema = new Schema(
+  {
     role: {
-        type: String,
-        required: true,
+      type: String,
+      required: true
     },
     company: {
-        type: String,
-        required: true
+      type: String,
+      required: true
     },
     startDate: {
-        type: Date,
-        required: true
+      type: Date,
+      required: true
     },
     endDate: {
-        type: Date,
-        required: false
+      type: Date,
+      required: false
     },
     description: {
-        type: String,
-        required: true
+      type: String,
+      required: true
     },
     area: {
-        type: String,
-        required: false
+      type: String,
+      required: false
     },
     image: {
-        type: String,
-        required: false
+      type: String,
+      required: false
+    },
+    email: {
+      type: String,
+      required: true
     },
     username: {
-        type: String,
-        required: true
+      type: String,
+      required: false
     }
-}, {
-        timestamps: true
-    });
+  },
+  {
+    timestamps: true
+  }
+);
 
-module.exports =  mongoose.model('experienceSchema', experienceSchema);
+module.exports = mongoose.model("experienceSchema", experienceSchema);
