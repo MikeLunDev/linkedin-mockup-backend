@@ -9,7 +9,7 @@ const passport = require("passport");
 const userRouter = require("./services/user");
 
 const server = express();
-server.set("port", 3005);
+server.set("port", process.env.PORT || 3005);
 server.use(express.json());
 server.use(passport.initialize());
 server.use("/poster", express.static(join(__dirname, "./public/imgs")));
