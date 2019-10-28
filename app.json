@@ -1,9 +1,0 @@
-{
-  "name": "linkedin-mockup-backend",
-  "description": "Backend for linkedin-mockup",
-  "success_url": "/",
-  "env": {
-    "production": "true",
-    "verboseApiCalls": "false"
-  }
-}
