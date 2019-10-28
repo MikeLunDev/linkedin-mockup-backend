@@ -13,11 +13,11 @@ passport.use(User.createStrategy());
   secretOrKey: "thisisasupersecretkey"
 }; */
 
-const options = {};
-options.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
-options.secretOrKey = "thisisasupersecretkey";
+const jwtOptions = {};
+jwtOptions.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
+jwtOptions.secretOrKey = "thisisasupersecretkey";
 passport.use(
-  new JwtStrategy(options, (jwt_payload, done) => {
+  new JwtStrategy(jwtOptions, (jwt_payload, done) => {
     //jwt_pay is the extracted json
     console.log("payload", jwt_payload);
     User.findById(jwt_payload._id, (err, user) => {
