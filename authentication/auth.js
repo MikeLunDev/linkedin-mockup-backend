@@ -6,7 +6,7 @@ const jwt = require("jsonwebtoken");
 
 passport.serializeUser(User.serializeUser()); //user.serial is from passport-local-mongoose
 passport.deserializeUser(User.deserializeUser());
-passport.use(User.createStrategy());
+passport.use(new LocalStrategy(User.authenticate()));
 
 var options = {
   secretOrKey: "thisisasupersecretkey",
