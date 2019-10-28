@@ -8,10 +8,14 @@ passport.serializeUser(User.serializeUser()); //user.serial is from passport-loc
 passport.deserializeUser(User.deserializeUser());
 passport.use(User.createStrategy());
 
-var options = {
+/* var options = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
   secretOrKey: "thisisasupersecretkey"
-};
+}; */
+
+const options = {};
+options.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
+options.secretOrKey = "thisisasupersecretkey";
 passport.use(
   new JwtStrategy(options, (jwt_payload, done) => {
     //jwt_pay is the extracted json
