@@ -10,7 +10,7 @@ passport.use(User.createStrategy());
 
 var options = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-  myKey: "thisisasupersecretkey"
+  secretOrKey: "thisisasupersecretkey"
 };
 passport.use(
   new JwtStrategy(options, (jwt_payload, done) => {
