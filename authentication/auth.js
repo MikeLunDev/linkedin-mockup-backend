@@ -12,7 +12,7 @@ var options = {
 
 passport.serializeUser(User.serializeUser()); //user.serial is from passport-local-mongoose
 passport.deserializeUser(User.deserializeUser());
-passport.use(new LocalStrategy(User.authenticate()));
+passport.use(User.createStrategy());
 
 passport.use(
   new JwtStrategy(options, (jwt_payload, done) => {

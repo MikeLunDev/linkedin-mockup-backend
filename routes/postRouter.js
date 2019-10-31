@@ -16,6 +16,7 @@ postRouter
       res.json(app);
     });
   })
+
   .post(passport.authenticate("jwt"), async (req, res, next) => {
     req.body.username = req.user.user;
     req.body.email = req.user.email;
