@@ -85,7 +85,6 @@ router.post("/login", passport.authenticate("local"), (req, res) => {
 });
 
 router.post("/refresh", passport.authenticate("jwt"), (req, res) => {
-  console.log("REFRESHISSSSSSSSSSSSSSSSSSSSSSSSSSSSSS", req.user);
   var token = getToken({
     _id: req.user._id,
     email: req.user.email,

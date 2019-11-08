@@ -16,14 +16,15 @@
     "express": "^4.17.1",
     "express-list-endpoints": "^4.0.1",
     "fs-extra": "^8.1.0",
-    "multer": "^1.4.2",
-    "shortid": "^2.2.15",
     "jsonwebtoken": "^8.5.1",
     "mongodb": "^3.3.3",
     "mongoose": "^5.7.6",
+    "multer": "^1.4.2",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
-    "passport-local-mongoose": "^5.0.1"
+    "passport-local-mongoose": "^5.0.1",
+    "shortid": "^2.2.15",
+    "socketio": "^1.0.0"
   }
 }
