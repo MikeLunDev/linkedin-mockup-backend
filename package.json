@@ -5,7 +5,8 @@
   "private": true,
   "main": "server.js",
   "scripts": {
-    "dev": "nodemon -r dotenv/config ./server.js"
+    "dev": "nodemon -r dotenv/config ./server.js",
+    "test": "cross-env NODE_ENV=test jest --testTimeout=8000 --runInBand --forceExit"
   },
   "keywords": [],
   "author": "",
@@ -18,13 +19,26 @@
     "fs-extra": "^8.1.0",
     "jsonwebtoken": "^8.5.1",
     "mongodb": "^3.3.3",
-    "mongoose": "^5.7.6",
+    "mongoose": "^5.7.10",
     "multer": "^1.4.2",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
     "passport-local-mongoose": "^5.0.1",
     "shortid": "^2.2.15",
-    "socketio": "^1.0.0"
+    "socketio": "^1.0.0",
+    "swagger-ui-express": "^4.1.2",
+    "yamljs": "^0.3.0"
+  },
+  "devDependencies": {
+    "cross-env": "^6.0.3",
+    "jest": "^24.9.0",
+    "supertest": "^4.0.2"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ]
   }
 }

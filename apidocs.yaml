@@ -1,0 +1,287 @@
+openapi: 3.0.1
+info:
+ title: Linkedin App
+ description: <p style="color:darkcyan; font-size:20px; font-weight:600">A linkedIn-mockup Rest Api</p><ul style="list-style-type:square"><li style="color:black; font-size:18px; font-weight:600; cursor:pointer"><a href="/#">FULL WEBSITE LIVE DEMO</a></li><li style="color:black; font-size:18px; font-weight:600; cursor:pointer"><a href="https://github.com/MikeLunDev/linkedin-mockup-backend">GITHUB REPO</a></li></ul>
+ version: 1.0.0
+servers:
+ - url: http://localhost:3015
+   description: Local Host
+tags:
+  - name: profiles
+    description: <p style="color:#545456; font-size:18px; font-weight:600; padding-top:3px"> Profile CRUD operations</p>
+  - name: user
+    description: <p style="color:#545456; font-size:18px; font-weight:600; padding-top:5px">User registration, login, refresh token </p>
+paths:
+  /profiles:
+    get:
+      tags:
+        - profiles
+      summary: Returns a list of users.
+      description: <p style="color:blue; font-size:16px; font-weight:600">Get all the profiles from the db</p>
+      responses:
+        '200':    # status code
+          description: <p style="color:green; font-size:16px; font-weight:600"> Successfully retreived a JSON array of profiles from the db</p>
+          content:
+            application/json:
+              schema: 
+                type: array
+                items: 
+                  $ref: '#/components/schemas/Profile'
+              example:
+                _id: 5dbaa59b8f7c68359896f74b //server generated
+                email: test123@gmail.com
+                name: test1
+                surname: test1
+                bio: bio
+                title: cto
+                area: berlin
+                createdAt: '2019-10-31T09:12:59.589Z //server generated' 
+                updatedAt: '2019-10-31T09:12:59.589Z //server generated' 
+                __v: 0 
+                #[
+                  {
+                  "_id": "5d84937322b7b54d848eb41b",
+                        "name": "Diego",
+                        "surname": "Banovaz",
+                        "email": "diego@strive.school",
+                        "bio": "SW ENG",
+                        "title": "COO @ Strive School",
+                        "area": "Berlin",
+                        "username": "admin",
+                        "createdAt": "2019-09-20T08:53:07.094Z",
+                        "updatedAt": "2019-09-20T08:53:07.094Z",
+                        "__v": 0,
+                        "image": "https://csb39af7c2f2658x433dxa4d.blob.core.windows.net/profiles/profile-eb9ab2cc-7876-4c58-88be-738db8f71375.jpg"
+                    },
+                    {
+                        "_id": "5da579445db3d10017340066",
+                        "name": "giovanni",
+                        "surname": "Lunati",
+                        "email": "lunatimichele123@gmail.com",
+                        "bio": "I'm a Full Stack developer with a natural inclination toward problem solving. I like the tech world in general, and I struggle every day to learn new stuff and keep track of new technology related to the Web Development. My favourite stack is M.E.R.N. Next things I'd like to learn: Kubernets, Web Socket.",
+                        "title": "Curious Mind And Passionate developer",
+                        "area": "matera",
+                        "username": "user4",
+                        "createdAt": "2019-10-15T07:46:12.475Z",
+                        "updatedAt": "2019-10-25T09:46:06.125Z",
+                        "__v": 0,
+                        "image": "https://csb39af7c2f2658x433dxa4d.blob.core.windows.net/profiles/profile-a43b83ce-ea73-4479-ba9a-d1adf71a3205.png"
+                    },
+                    {
+                        "_id": "5da6118b3162d000173aaaa8",
+                        "name": "Roberta",
+                        "surname": "Huber",
+                        "email": "roberta@gmail.com",
+                        "bio": "Experience with investment management firm",
+                        "title": "Web Developer",
+                        "area": "Malta",
+                        "username": "user7",
+                        "createdAt": "2019-10-15T18:35:55.150Z",
+                        "updatedAt": "2019-10-15T18:35:55.150Z",
+                        "__v": 0
+                    },
+                    {
+                        "_id": "5da700a9f5bd2e0017ff75a7",
+                        "name": "Valerio",
+                        "surname": "Fusco",
+                        "email": "valeriofuscodev@gmail.com",
+                        "bio": "Full Stack Web Developer Highly motivated to personal and professional growth. Continuously improving my skills.",
+                        "title": "Strive School",
+                        "area": "Perugia , Italy",
+                        "image": "",
+                        "username": "user9",
+                        "createdAt": "2019-10-16T11:36:09.541Z",
+                        "updatedAt": "2019-10-16T11:36:09.541Z",
+                        "__v": 0
+                    }
+                 # ]
+    put:
+      tags:
+       - profiles
+      summary: Modify the profile info
+      description: <p style="color:blue; font-size:16px; font-weight:600">Every logged user can modify only his own profile.</p>
+      security:
+        - bearerAuth: []
+      requestBody:
+        description: Fields of the profile to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Profile'
+      responses:
+        '200':    # status code
+          description: <p style="color:green; font-size:16px; font-weight:600"> Returns a JSON object of the modified user. All the fields that are not in the schema are server/db generated.</p>
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/Profile'
+              example: 
+                _id: 5dbaa59b8f7c68359896f74b //server generated
+                email: test123@gmail.com
+                name: test1
+                surname: test1
+                bio: bio
+                title: cto
+                area: berlin
+                createdAt: '2019-10-31T09:12:59.589Z //server generated' 
+                updatedAt: '2019-10-31T09:12:59.589Z //server generated' 
+                __v: 0
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /profiles/me:
+    get:
+      tags:
+       - profiles
+      summary: Retrieve profile of logged user
+      description: <p style="color:blue; font-size:16px; font-weight:600">Get the current logged user's profile by passing the login token</p>
+      security:
+        - bearerAuth: []
+      responses:
+        '200':    # status code
+          description: <p style="color:green; font-size:16px; font-weight:600">Returns a JSON object of the current logged user. All the fields that are not in the schema are server/db generated. The updatedAt field (server genereted) gets updated as well.</p>
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/Profile'
+              example: 
+                _id: 5dbaa59b8f7c68359896f74b  //server generated
+                email: test123@gmail.com
+                name: test1
+                surname: test1
+                bio: bio
+                title: cto
+                area: berlin
+                createdAt: '2019-10-31T09:12:59.589Z //server generated' 
+                updatedAt: '2019-10-31T09:12:59.589Z //server generated'
+                __v: 0
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /profiles/{email}:
+    get:
+      tags:
+       - profiles
+      summary: Retrieve a profile from an email
+      description: <p style="color:blue; font-size:16px; font-weight:600"> Get the profile from a specified email parameter</p>
+      parameters: 
+        - in: path
+          name: email 
+          schema:
+            type: string
+          required: true
+          description: For test purposes use [ test123@gmail.com ]
+      security:
+        - bearerAuth: []
+      responses:
+        '200':    # status code
+          description: <p style="color:blue; font-size:16px; font-weight:600">  Returns a JSON object of the user corrisponding to that email. All the fields that are not in the schema are server/db generated.</p>
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/Profile'
+              example: 
+                _id: 5dbaa59b8f7c68359896f74b  //server generated
+                email: test123@gmail.com
+                name: test1
+                surname: test1
+                bio: bio
+                title: cto
+                area: berlin
+                createdAt: '2019-10-31T09:12:59.589Z //server generated' 
+                updatedAt: '2019-10-31T09:12:59.589Z //server generated'
+                __v: 0
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+          
+  /user/login:
+    post:
+      tags:
+       - user
+      summary: User logged in
+      description: <u><p style="font-size:17px">Simple login using email and password.</u> <br> For test purposes use <i> this</i> credentials 
+        <ul style="font-size:17px"><li ><b >Email &colon;</b > test123@gmail.com </li> <li><b >Password &colon;</b> helloworld5</li></ul></p>
+      requestBody:
+        description: Fields of the profile to update
+        content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+      responses:
+        '200':    # status code
+          $ref: '#/components/responses/LoginSuccessful'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+               
+      
+                
+                  
+components:
+  responses:
+    Unauthorized:
+      description: <p style="color:red; font-size:16px; font-weight:600"> Returned when the password or the email are invalid. Or when the token is missing or invalid on a protected route.</p>
+      content:
+        text/plain:
+          schema:
+            type: string
+          example:
+            Unauthorized
+    BadRequest:
+      description: <p style="color:red; font-size:16px; font-weight:600">Returned when the password or the email field are missing.</p>
+      content:
+        text/plain:
+          schema:
+            type: string
+          example:
+            Bad Request
+    LoginSuccessful:
+      description: <p style="color:green; font-size:16px; font-weight:600"> User correctly logged in</p>
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              token: 
+                type: string
+              success: 
+                type: boolean
+          example: 
+            token: asd234ih234h2b33ojb23o4b //jwt token
+            success: true
+    
+  schemas:
+    User:
+      type: object
+      properties:
+        email: 
+          type: string 
+        password:
+          type: string
+    Profile:  # Profile definition
+      type: object
+      properties:
+        name:
+          type: string
+        surname: 
+          type: string
+        email: 
+          type: string
+        title: 
+          type: string
+        bio: 
+          type: string
+        area: 
+          type: string  
+        image: 
+          type: string
+    Error:
+      type: object
+      properties:
+        message: 
+          type: string
+  securitySchemes:
+    bearerAuth: 
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+          

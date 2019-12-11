@@ -17,7 +17,6 @@ passport.use(User.createStrategy());
 passport.use(
   new JwtStrategy(options, (jwt_payload, done) => {
     //jwt_pay is the extracted json
-    console.log("payload", jwt_payload);
     User.findById(jwt_payload._id, (err, user) => {
       if (err) return done(err, false);
       if (user) return done(null, user);

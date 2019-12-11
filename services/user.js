@@ -28,7 +28,8 @@ router.post("/register", async (req, res) => {
         newUser = await User.register(newUser, password);
         if (check !== null) {
           console.log("I'M HEREE");
-          res.json({
+          // res.setStatus = 201;
+          res.status(201).json({
             status: "New user created",
             success: true,
             user: newUser
@@ -36,15 +37,15 @@ router.post("/register", async (req, res) => {
         } else {
           try {
             await Profiles.create(req.body);
-            res.json({
+
+            res.status(201).json({
               status: "New user created",
               success: true,
               user: newUser
             });
           } catch (err) {
-            console.log("error in creating a profile", err.message);
             await User.findOneAndRemove({ email: email });
-            res.statusCode = 500;
+            res.statusCode = 400;
             res.send(err.message);
           }
         }
@@ -54,7 +55,7 @@ router.post("/register", async (req, res) => {
         res.send(err);
       }
     } else {
-      res.statusCode = 400;
+      res.statusCode = 500;
       res.json({
         success: false,
         status: "User already exist"
@@ -90,7 +91,7 @@ router.post("/refresh", passport.authenticate("jwt"), (req, res) => {
     email: req.user.email,
     user: req.user.user
   });
-  res.send({
+  res.status(200).json({
     success: true,
     token: token
   });
